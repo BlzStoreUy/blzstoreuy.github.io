@@ -42,6 +42,15 @@ a{text-decoration:none;color:inherit} button,select{font:inherit}
 .filter.active{background:var(--gold);color:#000;border-color:var(--gold)}
 .filter-label{display:flex;align-items:center;color:#aaa;font-size:11px;font-weight:800;padding:0 4px}
 </style>
+<style>
+.blz-filters{max-width:1180px;margin:0 auto;padding:18px 22px 8px}
+.blz-filter-row{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding-bottom:7px}
+.blz-filter-row::-webkit-scrollbar{display:none}
+.blz-filter{white-space:nowrap;border:1px solid #292929;background:#0b0b0b;color:#fff;border-radius:999px;padding:10px 14px;font-weight:800;font-size:12px;cursor:pointer}
+.blz-filter.active{background:var(--gold);color:#000;border-color:var(--gold)}
+.blz-label{display:flex;align-items:center;color:#999;font-size:11px;font-weight:800;padding:0 5px}
+@media(max-width:600px){.blz-filters{padding:14px 12px 6px}}
+</style>
 </head>
 <body>
 
@@ -97,7 +106,28 @@ a{text-decoration:none;color:inherit} button,select{font:inherit}
 
 <section class="section" id="destacados">
   <h2 class="section-title">PRODUCTOS <span>DESTACADOS</span></h2>
-  <div class="products" id="productGrid"></div>
+  <div id="blz-filters" class="blz-filters">
+  <div class="blz-filter-row">
+    <button class="blz-filter active" data-filter="all">TODOS</button>
+    <button class="blz-filter" data-filter="hombre">HOMBRE</button>
+    <button class="blz-filter" data-filter="mujer">MUJER</button>
+    <button class="blz-filter" data-filter="stock">⚡ STOCK DISPONIBLE</button>
+  </div>
+  <div class="blz-filter-row blz-brands">
+    <span class="blz-label">MARCAS</span>
+    <button class="blz-filter" data-filter="nike">NIKE</button>
+    <button class="blz-filter" data-filter="adidas">ADIDAS</button>
+    <button class="blz-filter" data-filter="jordan">JORDAN</button>
+    <button class="blz-filter" data-filter="newbalance">NEW BALANCE</button>
+    <button class="blz-filter" data-filter="puma">PUMA</button>
+    <button class="blz-filter" data-filter="vans">VANS</button>
+    <button class="blz-filter" data-filter="asics">ASICS</button>
+    <button class="blz-filter" data-filter="louisvuitton">LOUIS VUITTON</button>
+    <button class="blz-filter" data-filter="timberland">TIMBERLAND</button>
+    <button class="blz-filter" data-filter="salomon">SALOMON</button>
+  </div>
+</div>
+<div class="products" id="productGrid"></div>
 </section>
 
 <section class="benefits">
@@ -133,7 +163,7 @@ let cart=[];
 function money(n){return n.toLocaleString("es-UY")}
 function render(){
  const grid=document.getElementById("productGrid");
- grid.innerHTML=products.map(p=>`<article class="product" id="${p.cat}">
+ grid.innerHTML=products.map(p=>`<article class="product" id="${p.cat}" data-blz-product-id="${p.id}">
   <span class="tag">POR ENCARGO</span>
   <div class="gallery" id="gallery-${p.id}" data-index="0">
   <button class="carousel-arrow prev" aria-label="Foto anterior" onclick="changeImg(${p.id}, currentIndex(${p.id})-1)">‹</button>
@@ -233,5 +263,38 @@ buttons.forEach(b=>b.addEventListener("click",()=>{
  buttons.forEach(x=>x.classList.toggle("active",x===b));
  apply();
 }));
+})();
+</script>
+<script>
+(function(){
+  function blzTags(p){
+    const s=(String(p.name||"")+" "+String(p.variant||"")).toLowerCase();
+    const t=new Set();
+    if(s.includes("jordan")||s.includes("travis scott")){t.add("jordan");t.add("nike");t.add("hombre");t.add("mujer")}
+    if(s.includes("nike"))t.add("nike");
+    if(s.includes("adidas"))t.add("adidas");
+    if(s.includes("puma"))t.add("puma");
+    if(s.includes("new balance"))t.add("newbalance");
+    if(s.includes("vans"))t.add("vans");
+    if(s.includes("asics"))t.add("asics");
+    if(s.includes("timberland"))t.add("timberland");
+    if(s.includes("salomon"))t.add("salomon");
+    if(s.includes("louis vuitton")||s.includes("lv"))t.add("louisvuitton");
+    if(p.stock===true)t.add("stock");
+    return t;
+  }
+  function blzApply(filter){
+    document.querySelectorAll("[data-blz-product-id]").forEach(card=>{
+      const p=(window.products||[]).find(x=>String(x.id)===String(card.dataset.blzProductId));
+      card.style.display=(!p||filter==="all"||blzTags(p).has(filter))?"":"none";
+    });
+  }
+  document.addEventListener("click",e=>{
+    const b=e.target.closest(".blz-filter");
+    if(!b)return;
+    document.querySelectorAll(".blz-filter").forEach(x=>x.classList.remove("active"));
+    b.classList.add("active");
+    blzApply(b.dataset.filter);
+  });
 })();
 </script>
