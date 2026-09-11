@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BLZ Store | Calzados & Ropa</title>
+<meta name="description" content="BLZ Store — Calzados, ropa y estilo.">
+<style>
+:root{--bg:#050505;--card:#101010;--white:#f5f5f5;--muted:#aaa;--gold:#d8ad55;--line:#292929}
+*{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;background:var(--bg);color:var(--white);font-family:Arial,Helvetica,sans-serif}
+a{text-decoration:none;color:inherit} button,select{font:inherit}
+.header{position:sticky;top:0;z-index:20;background:rgba(5,5,5,.94);backdrop-filter:blur(12px);border-bottom:1px solid #181818}
+.nav{max-width:1180px;margin:auto;height:82px;display:flex;align-items:center;gap:28px;padding:10px 22px}
+.logo{height:62px;width:62px;border-radius:50%;object-fit:cover;border:1px solid #fff}
+.navlinks{display:flex;gap:26px;font-size:13px;font-weight:700;flex:1}.navlinks a:hover{color:var(--gold)}
+.icons{display:flex;gap:16px;align-items:center}.iconbtn{background:none;border:0;color:#fff;cursor:pointer;font-size:22px}
+.hero{min-height:570px;display:flex;align-items:center;background:linear-gradient(90deg,rgba(0,0,0,.96),rgba(0,0,0,.62),rgba(0,0,0,.25)),url('logo-blz.png');background-size:cover;background-position:center;padding:70px 7%}
+.hero-inner{max-width:650px}.eyebrow{letter-spacing:6px;font-size:12px;color:#ddd}.hero h1{font-size:clamp(54px,9vw,100px);margin:12px 0 0;letter-spacing:5px}.hero p{font-size:18px;letter-spacing:4px;color:#ddd}.gold-script{font-size:30px;color:var(--gold);font-style:italic;margin:22px 0}.btn{display:inline-block;border:1px solid var(--gold);padding:15px 24px;font-weight:800;letter-spacing:.5px}.btn:hover{background:var(--gold);color:#000}
+.section{max-width:1180px;margin:auto;padding:60px 22px}.section-title{font-size:34px;margin:0 0 28px}.section-title span{color:var(--gold)}
+.categories{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.cat{min-height:210px;border:1px solid var(--line);padding:26px;display:flex;flex-direction:column;justify-content:flex-end;background:linear-gradient(145deg,#1a1a1a,#080808)}.cat h3{font-size:28px;margin:0 0 6px}.cat p{color:var(--muted);margin:0}.cat:hover{border-color:var(--gold)}
+.products{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}.product{background:#0d0d0d;border:1px solid #202020;padding:10px;position:relative}.product img{width:100%;aspect-ratio:1/1;object-fit:cover;background:#eee}.gallery{margin:-10px -10px 0}.gallery>img{display:block}.thumbs{display:flex;gap:6px;padding:8px;overflow-x:auto}.thumb{padding:0;border:1px solid #333;background:#111;min-width:58px;width:58px;height:58px;cursor:pointer}.thumb.active{border-color:var(--gold)}.thumb img{width:100%;height:100%;object-fit:cover}.variant{margin:-3px 4px 8px;color:var(--muted);font-size:13px}.order-info{border:1px solid #292929;background:#090909;padding:12px;margin:8px 4px 12px;display:grid;gap:5px;font-size:12px;color:#ddd}.size-label{display:block;margin:0 4px 5px;font-size:12px;color:#aaa}.tag{position:absolute;top:18px;left:18px;background:#f2d18b;color:#000;padding:6px 9px;font-size:11px;font-weight:800}.product h3{font-size:16px;margin:14px 4px 7px}.price{font-size:20px;font-weight:800;margin:0 4px 12px}.product select{width:100%;background:#080808;color:#fff;border:1px solid #444;padding:11px;margin-bottom:10px}.wa{width:100%;padding:12px;border:1px solid var(--gold);background:transparent;color:#fff;font-weight:800;cursor:pointer}.wa:hover{background:var(--gold);color:#000}
+.benefits{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:#090909}.benefitgrid{max-width:1180px;margin:auto;padding:25px 22px;display:grid;grid-template-columns:repeat(4,1fr);gap:20px}.benefit{font-size:13px;font-weight:800}.benefit small{display:block;color:var(--muted);font-weight:400;margin-top:5px}
+.footer{max-width:1180px;margin:auto;padding:50px 22px;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:35px}.footer h4{margin-top:0}.footer p,.footer a{color:var(--muted);font-size:14px;display:block;margin:8px 0}.brand{font-size:38px;font-weight:900;letter-spacing:5px}.brand span{color:var(--gold)}
+.drawer{position:fixed;right:-420px;top:0;height:100%;width:min(420px,100%);background:#0a0a0a;z-index:50;border-left:1px solid #333;padding:25px;transition:.3s;overflow:auto}.drawer.open{right:0}.drawer-header{display:flex;justify-content:space-between;align-items:center}.cart-item{display:flex;justify-content:space-between;border-bottom:1px solid #222;padding:15px 0;gap:12px}.cart-total{font-size:22px;font-weight:800;margin:22px 0}.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:40}.overlay.open{display:block}
+@media(max-width:850px){.nav{height:70px}.navlinks{display:none}.hero{min-height:500px;padding:55px 25px}.categories,.products{grid-template-columns:1fr 1fr}.benefitgrid{grid-template-columns:1fr 1fr}.footer{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.categories,.products,.benefitgrid,.footer{grid-template-columns:1fr}.section{padding:45px 16px}.hero h1{font-size:54px}.hero p{font-size:14px}.logo{height:52px;width:52px}}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <nav class="nav">
+    <img class="logo" src="logo-blz.png" alt="BLZ Store">
+    <div class="navlinks">
+      <a href="#inicio">INICIO</a><a href="#calzados">CALZADOS</a><a href="#ropa">ROPA</a><a href="#ofertas">OFERTAS</a><a href="#contacto">CONTACTO</a>
+    </div>
+    <div class="icons"><button class="iconbtn" onclick="openCart()" aria-label="Carrito">🛒 <span id="count">0</span></button></div>
+  </nav>
+</header>
+
+<main id="inicio">
+<section class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">SNEAKERS • CLOTHING • LIFESTYLE</div>
+    <h1>BLZ</h1>
+    <p>CALZADOS &nbsp;|&nbsp; ROPA &nbsp;|&nbsp; ESTILO</p>
+    <div class="gold-script">Estilo en cada paso.</div>
+    <a class="btn" href="#destacados">VER COLECCIÓN →</a>
+  </div>
+</section>
+
+<section class="section">
+  <div class="categories">
+    <a class="cat" href="#calzados"><h3>CALZADOS</h3><p>Productos por encargo →</p></a>
+    <a class="cat" href="#ropa"><h3>ROPA</h3><p>Próximamente →</p></a>
+    <a class="cat" href="#ofertas"><h3>OFERTAS</h3><p>Próximamente →</p></a>
+  </div>
+</section>
+
+<section class="section" id="destacados">
+  <h2 class="section-title">PRODUCTOS <span>DESTACADOS</span></h2>
+  <div class="products" id="productGrid"></div>
+</section>
+
+<section class="benefits">
+  <div class="benefitgrid">
+    <div class="benefit">🚚 ENVÍOS A TODO URUGUAY<small>Consultá zonas y costos.</small></div>
+    <div class="benefit">💳 MÚLTIPLES FORMAS DE PAGO<small>Coordinamos el medio de pago.</small></div>
+    <div class="benefit">✓ COMPRA SEGURA<small>Atención personalizada.</small></div>
+    <div class="benefit">💬 ATENCIÓN POR WHATSAPP<small>Consultas rápidas y directas.</small></div>
+  </div>
+</section>
+</main>
+
+<footer class="footer" id="contacto">
+  <div><div class="brand">BLZ</div><p>CALZADOS | ROPA | ESTILO</p><p>Estilo en cada paso.</p></div>
+  <div><h4>ENLACES</h4><a href="#inicio">Inicio</a><a href="#calzados">Calzados</a><a href="#ropa">Ropa</a><a href="#ofertas">Ofertas</a></div>
+  <div><h4>SEGUINOS</h4><a href="#" onclick="return false">Instagram</a><a href="#" onclick="return false">TikTok</a><a href="#" onclick="return false">WhatsApp</a></div>
+  <div><h4>CONTACTO</h4><p>Uruguay</p><p>Agregaremos aquí tu WhatsApp e Instagram.</p></div>
+</footer>
+
+<div class="overlay" id="overlay" onclick="closeCart()"></div>
+<aside class="drawer" id="drawer">
+  <div class="drawer-header"><h2>Tu carrito</h2><button class="iconbtn" onclick="closeCart()">✕</button></div>
+  <div id="cartItems"></div>
+  <div class="cart-total">Total: $<span id="total">0</span><small style="display:block;color:#aaa;font-size:12px;font-weight:400;margin-top:7px">Seña 50%: $<span id="deposit">0</span> · Saldo al recibir: $<span id="balance">0</span></small></div>
+  <button class="wa" onclick="checkout()">FINALIZAR POR WHATSAPP</button>
+</aside>
+
+<script>
+const products=[
+ {id:1,name:"Travis Scott x Air Jordan 1 Low",variant:"Black Phantom",price:7490,cat:"calzados",images:["travis-1.jpeg","travis-2.jpeg","travis-3.jpeg","travis-4.jpeg","travis-5.jpeg","travis-6.jpeg","travis-7.jpeg"]}
+];
+let cart=[];
+function money(n){return n.toLocaleString("es-UY")}
+function render(){
+ const grid=document.getElementById("productGrid");
+ grid.innerHTML=products.map(p=>`<article class="product" id="${p.cat}">
+  <span class="tag">POR ENCARGO</span>
+  <div class="gallery"><img id="main-${p.id}" src="${p.images[0]}" alt="${p.name} ${p.variant}"><div class="thumbs">${p.images.map((im,i)=>`<button class="thumb ${i===0?'active':''}" onclick="changeImg(${p.id},${i})"><img src="${im}" alt="Vista ${i+1}"></button>`).join("")}</div></div>
+  <h3>${p.name}</h3><p class="variant">${p.variant}</p><p class="price">$ ${money(p.price)}</p>
+  <div class="order-info"><b>📦 Por encargo</b><span>⏱️ Demora aproximada: 25 días</span><span>🔐 Seña 50%: <strong>$ ${money(p.price/2)}</strong></span><span>💰 Saldo al recibir: <strong>$ ${money(p.price/2)}</strong></span></div>
+  <label class="size-label">Talle</label><select id="size-${p.id}"><option value="">Seleccionar talle</option>${Array.from({length:11},(_,i)=>`<option>${i+35}</option>`).join("")}</select>
+  <button class="wa" onclick="add(${p.id})">⚡ ENCARGAR AHORA</button>
+ </article>`).join("");
+}
+function changeImg(id,i){const p=products.find(x=>x.id===id);document.getElementById("main-"+id).src=p.images[i];document.querySelectorAll('.thumb').forEach(b=>b.classList.remove('active'));event.currentTarget.classList.add('active')}
+function add(id){const p=products.find(x=>x.id===id),size=document.getElementById("size-"+id).value;if(!size){alert("Seleccioná un talle.");return}cart.push({...p,size});renderCart();openCart()}
+function renderCart(){document.getElementById("count").textContent=cart.length;document.getElementById("cartItems").innerHTML=cart.length?cart.map((p,i)=>`<div class="cart-item"><div><b>${p.name}</b><br><span>${p.variant}</span><br>Talle: ${p.size}<br>$ ${money(p.price)}<br><small>Seña: $ ${money(p.price/2)} · Saldo: $ ${money(p.price/2)}</small></div><button class="iconbtn" onclick="removeItem(${i})">✕</button></div>`).join(""):"<p style='color:#aaa'>Tu carrito está vacío.</p>";document.getElementById("total").textContent=money(cart.reduce((s,p)=>s+p.price,0));document.getElementById("deposit").textContent=money(cart.reduce((s,p)=>s+p.price,0)/2);document.getElementById("balance").textContent=money(cart.reduce((s,p)=>s+p.price,0)/2)}
+function removeItem(i){cart.splice(i,1);renderCart()}
+function openCart(){document.getElementById("drawer").classList.add("open");document.getElementById("overlay").classList.add("open")}
+function closeCart(){document.getElementById("drawer").classList.remove("open");document.getElementById("overlay").classList.remove("open")}
+function checkout(){if(!cart.length){alert("Tu carrito está vacío.");return}const lines=cart.map(p=>`- ${p.name} (${p.variant}) | Talle: ${p.size} | $${money(p.price)} | Seña: $${money(p.price/2)}`).join("\n");const total=cart.reduce((s,p)=>s+p.price,0);const msg=`Hola BLZ Store! Quiero realizar un pedido por encargo:\n${lines}\n\nTotal: $${money(total)}\nSeña 50%: $${money(total/2)}\nSaldo al recibir: $${money(total/2)}\nDemora aproximada: 25 días`;const phone="59895758462";window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`,"_blank")}
+render();renderCart();
+</script>
+</body>
+</html>
