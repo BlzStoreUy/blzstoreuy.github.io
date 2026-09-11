@@ -34,6 +34,14 @@ a{text-decoration:none;color:inherit} button,select{font:inherit}
 @media(max-width:850px){.nav{height:70px}.navlinks{display:none}.hero{min-height:500px;padding:55px 25px}.categories,.products{grid-template-columns:1fr 1fr}.benefitgrid{grid-template-columns:1fr 1fr}.footer{grid-template-columns:1fr 1fr}}
 @media(max-width:520px){.categories,.products,.benefitgrid,.footer{grid-template-columns:1fr}.section{padding:45px 16px}.hero h1{font-size:54px}.hero p{font-size:14px}.logo{height:52px;width:52px}}
 </style>
+<style>
+.filters-wrap{padding:18px 10px 8px;display:flex;flex-direction:column;gap:10px}
+.filter-group{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+.filter-group::-webkit-scrollbar{display:none}
+.filter{white-space:nowrap;background:#0b0b0b;color:#fff;border:1px solid #292929;border-radius:999px;padding:10px 14px;font-weight:800;font-size:12px;cursor:pointer}
+.filter.active{background:var(--gold);color:#000;border-color:var(--gold)}
+.filter-label{display:flex;align-items:center;color:#aaa;font-size:11px;font-weight:800;padding:0 4px}
+</style>
 </head>
 <body>
 
@@ -47,6 +55,27 @@ a{text-decoration:none;color:inherit} button,select{font:inherit}
   </nav>
 </header>
 
+<div class="filters-wrap" id="filters">
+  <div class="filter-group">
+    <button class="filter active" data-filter="all">TODOS</button>
+    <button class="filter" data-filter="hombre">HOMBRE</button>
+    <button class="filter" data-filter="mujer">MUJER</button>
+    <button class="filter" data-filter="stock">⚡ STOCK DISPONIBLE</button>
+  </div>
+  <div class="filter-group brands">
+    <span class="filter-label">MARCAS</span>
+    <button class="filter" data-filter="nike">NIKE</button>
+    <button class="filter" data-filter="adidas">ADIDAS</button>
+    <button class="filter" data-filter="jordan">JORDAN</button>
+    <button class="filter" data-filter="newbalance">NEW BALANCE</button>
+    <button class="filter" data-filter="puma">PUMA</button>
+    <button class="filter" data-filter="vans">VANS</button>
+    <button class="filter" data-filter="asics">ASICS</button>
+    <button class="filter" data-filter="timberland">TIMBERLAND</button>
+    <button class="filter" data-filter="salomon">SALOMON</button>
+    <button class="filter" data-filter="louisvuitton">LOUIS VUITTON</button>
+  </div>
+</div>
 <main id="inicio">
 <section class="hero">
   <div class="hero-inner">
@@ -176,3 +205,33 @@ render();renderCart();
 </script>
 </body>
 </html>
+<script>
+(function(){
+const buttons=document.querySelectorAll(".filter");
+let active="all";
+function tags(p){
+  const s=(p.name+" "+p.variant).toLowerCase(), t=new Set();
+  if(s.includes("jordan")||s.includes("travis scott")){t.add("jordan");t.add("nike");t.add("hombre");t.add("mujer")}
+  if(s.includes("nike"))t.add("nike");
+  if(s.includes("adidas"))t.add("adidas");
+  if(s.includes("puma"))t.add("puma");
+  if(s.includes("new balance"))t.add("newbalance");
+  if(s.includes("vans"))t.add("vans");
+  if(s.includes("asics"))t.add("asics");if(s.includes("timberland"))t.add("timberland"); if(s.includes("salomon"))t.add("salomon");
+  if(s.includes("louis vuitton")||s.includes(" lv"))t.add("louisvuitton");
+  if(p.stock===true)t.add("stock");
+  return t;
+}
+function apply(){
+ document.querySelectorAll("[data-product-id]").forEach(card=>{
+   const p=products.find(x=>x.id===Number(card.dataset.productId));
+   card.style.display=(!p||active==="all"||tags(p).has(active))?"":"none";
+ });
+}
+buttons.forEach(b=>b.addEventListener("click",()=>{
+ active=b.dataset.filter;
+ buttons.forEach(x=>x.classList.toggle("active",x===b));
+ apply();
+}));
+})();
+</script>
