@@ -27,7 +27,7 @@ a{text-decoration:none;color:inherit} button,select{font:inherit}
 .carousel-dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.45);border:0;padding:0}
 .carousel-dot.active{background:var(--gold);transform:scale(1.2)}
 .thumbs{display:flex;gap:6px;padding:8px;overflow-x:auto;scrollbar-width:none}
-.thumbs::-webkit-scrollbar{display:none}.thumb{padding:0;border:1px solid #333;background:#111;min-width:58px;width:58px;height:58px;cursor:pointer}.thumb.active{border-color:var(--gold)}.thumb img{width:100%;height:100%;object-fit:cover}.variant{margin:-3px 4px 8px;color:var(--muted);font-size:13px}.order-info{border:1px solid #292929;background:#090909;padding:12px;margin:8px 4px 12px;display:grid;gap:5px;font-size:12px;color:#ddd}.size-label{display:block;margin:0 4px 5px;font-size:12px;color:#aaa}.tag{position:absolute;top:18px;left:18px;background:#f2d18b;color:#000;padding:6px 9px;font-size:11px;font-weight:800}.product h3{font-size:16px;margin:14px 4px 7px}.price{font-size:20px;font-weight:800;margin:0 4px 12px}.product select{width:100%;background:#080808;color:#fff;border:1px solid #444;padding:11px;margin-bottom:10px}.wa{width:100%;padding:12px;border:1px solid var(--gold);background:transparent;color:#fff;font-weight:800;cursor:pointer}.wa:hover{background:var(--gold);color:#000}
+.thumbs::-webkit-scrollbar{display:none}.thumb{padding:0;border:1px solid #333;background:#111;min-width:58px;width:58px;height:58px;cursor:pointer}.thumb.active{border-color:var(--gold)}.thumb img{width:100%;height:100%;object-fit:cover}.variant{margin:-3px 4px 8px;color:var(--muted);font-size:13px}.order-info{border:1px solid #292929;background:#090909;padding:12px;margin:8px 4px 12px;display:grid;gap:5px;font-size:12px;color:#ddd}.size-label{display:block;margin:0 4px 5px;font-size:12px;color:#aaa}.tag{position:absolute;top:18px;left:18px;background:#f2d18b;color:#000;padding:6px 9px;font-size:11px;font-weight:800}.product h3{font-size:16px;margin:14px 4px 7px}.price{font-size:20px;font-weight:800;margin:0 4px 12px}.product select{width:100%;background:#080808;color:#fff;border:1px solid #444;padding:11px;margin-bottom:10px}.wa{width:100%;padding:12px;border:1px solid var(--gold);background:transparent;color:#fff;font-weight:800;cursor:pointer}.wa:hover{background:var(--gold);color:#000}.whatsapp-order{background:#1fbd5b;border-color:#1fbd5b;color:#fff;font-size:15px}.whatsapp-order:hover{background:#169b49;color:#fff}
 .benefits{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:#090909}.benefitgrid{max-width:1180px;margin:auto;padding:25px 22px;display:grid;grid-template-columns:repeat(4,1fr);gap:20px}.benefit{font-size:13px;font-weight:800}.benefit small{display:block;color:var(--muted);font-weight:400;margin-top:5px}
 .footer{max-width:1180px;margin:auto;padding:50px 22px;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:35px}.footer h4{margin-top:0}.footer p,.footer a{color:var(--muted);font-size:14px;display:block;margin:8px 0}.brand{font-size:38px;font-weight:900;letter-spacing:5px}.brand span{color:var(--gold)}
 .drawer{position:fixed;right:-420px;top:0;height:100%;width:min(420px,100%);background:#0a0a0a;z-index:50;border-left:1px solid #333;padding:25px;transition:.3s;overflow:auto}.drawer.open{right:0}.drawer-header{display:flex;justify-content:space-between;align-items:center}.cart-item{display:flex;justify-content:space-between;border-bottom:1px solid #222;padding:15px 0;gap:12px}.cart-total{font-size:22px;font-weight:800;margin:22px 0}.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:40}.overlay.open{display:block}
@@ -116,7 +116,7 @@ function render(){
   <h3>${p.name}</h3><p class="variant">${p.variant}</p><p class="price">$ ${money(p.price)}</p>
   <div class="order-info"><b>📦 Por encargo</b><span>⏱️ Demora aproximada: 25 días</span><span>🔐 Seña 50%: <strong>$ ${money(p.price/2)}</strong></span><span>💰 Saldo al recibir: <strong>$ ${money(p.price/2)}</strong></span></div>
   <label class="size-label">Talle</label><select id="size-${p.id}"><option value="">Seleccionar talle</option>${Array.from({length:11},(_,i)=>`<option>${i+35}</option>`).join("")}</select>
-  <button class="wa" onclick="add(${p.id})">⚡ ENCARGAR AHORA</button>
+  <button class="wa whatsapp-order" onclick="orderNow(${p.id})">💬 ENCARGAR POR WHATSAPP</button>
  </article>`).join("");
 }
 function currentIndex(id){return Number(document.getElementById("gallery-"+id).dataset.index||0)}
@@ -158,6 +158,16 @@ function renderCart(){document.getElementById("count").textContent=cart.length;d
 function removeItem(i){cart.splice(i,1);renderCart()}
 function openCart(){document.getElementById("drawer").classList.add("open");document.getElementById("overlay").classList.add("open")}
 function closeCart(){document.getElementById("drawer").classList.remove("open");document.getElementById("overlay").classList.remove("open")}
+function orderNow(id){
+ const p=products.find(x=>x.id===id);
+ const sizeEl=document.getElementById("size-"+id);
+ const size=sizeEl ? sizeEl.value : "";
+ if(!size){alert("Seleccioná un talle antes de encargar."); if(sizeEl) sizeEl.focus(); return;}
+ const price=money(p.price), half=money(p.price/2);
+ const msg=`Hola BLZ Store! Quiero encargar este producto:\n\nProducto: ${p.name}\nModelo: ${p.variant}\nTalle: ${size}\nPrecio: $${price}\nSeña 50%: $${half}\nSaldo al recibir: $${half}\nDemora aproximada: 25 días`;
+ const phone="59895758462";
+ window.location.href=`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
+}
 function checkout(){if(!cart.length){alert("Tu carrito está vacío.");return}const lines=cart.map(p=>`- ${p.name} (${p.variant}) | Talle: ${p.size} | $${money(p.price)} | Seña: $${money(p.price/2)}`).join("\n");const total=cart.reduce((s,p)=>s+p.price,0);const msg=`Hola BLZ Store! Quiero realizar un pedido por encargo:\n${lines}\n\nTotal: $${money(total)}\nSeña 50%: $${money(total/2)}\nSaldo al recibir: $${money(total/2)}\nDemora aproximada: 25 días`;const phone="59895758462";window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`,"_blank")}
 render();renderCart();
 </script>
