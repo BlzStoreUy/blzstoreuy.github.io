@@ -66,23 +66,23 @@ a{text-decoration:none;color:inherit} button,select{font:inherit}
 
 <div class="filters-wrap" id="filters">
   <div class="filter-group">
-    <button class="filter active" data-filter="all">TODOS</button>
-    <button class="filter" data-filter="hombre">HOMBRE</button>
-    <button class="filter" data-filter="mujer">MUJER</button>
-    <button class="filter" data-filter="stock">⚡ STOCK DISPONIBLE</button>
+    <button class="filter-btn filter active" data-filter="all" onclick="applyFilter('all')">TODOS</button>
+    <button class="filter-btn filter" data-filter="hombre" onclick="applyFilter('hombre')">HOMBRE</button>
+    <button class="filter-btn filter" data-filter="mujer" onclick="applyFilter('mujer')">MUJER</button>
+    <button class="filter-btn filter" data-filter="stock" onclick="applyFilter('stock')">⚡ STOCK DISPONIBLE</button>
   </div>
   <div class="filter-group brands">
     <span class="filter-label">MARCAS</span>
-    <button class="filter" data-filter="nike">NIKE</button>
-    <button class="filter" data-filter="adidas">ADIDAS</button>
-    <button class="filter" data-filter="jordan">JORDAN</button>
-    <button class="filter" data-filter="newbalance">NEW BALANCE</button>
-    <button class="filter" data-filter="puma">PUMA</button>
-    <button class="filter" data-filter="vans">VANS</button>
-    <button class="filter" data-filter="asics">ASICS</button>
-    <button class="filter" data-filter="timberland">TIMBERLAND</button>
-    <button class="filter" data-filter="salomon">SALOMON</button>
-    <button class="filter" data-filter="louisvuitton">LOUIS VUITTON</button>
+    <button class="filter-btn filter" data-filter="nike" onclick="applyFilter('nike')">NIKE</button>
+    <button class="filter-btn filter" data-filter="adidas" onclick="applyFilter('adidas')">ADIDAS</button>
+    <button class="filter-btn filter" data-filter="jordan" onclick="applyFilter('jordan')">JORDAN</button>
+    <button class="filter-btn filter" data-filter="newbalance" onclick="applyFilter('newbalance')">NEW BALANCE</button>
+    <button class="filter-btn filter" data-filter="puma" onclick="applyFilter('puma')">PUMA</button>
+    <button class="filter-btn filter" data-filter="vans" onclick="applyFilter('vans')">VANS</button>
+    <button class="filter-btn filter" data-filter="asics" onclick="applyFilter('asics')">ASICS</button>
+    <button class="filter-btn filter" data-filter="timberland" onclick="applyFilter('timberland')">TIMBERLAND</button>
+    <button class="filter-btn filter" data-filter="salomon" onclick="applyFilter('salomon')">SALOMON</button>
+    <button class="filter-btn filter" data-filter="louisvuitton" onclick="applyFilter('louisvuitton')">LOUIS VUITTON</button>
   </div>
 </div>
 <main id="inicio">
@@ -94,7 +94,7 @@ a{text-decoration:none;color:inherit} button,select{font:inherit}
     <div class="gold-script">Estilo en cada paso.</div>
     <a class="btn" href="#destacados">VER COLECCIÓN →</a>
   </div>
-</section>
+<div id="empty-filter" style="display:none;text-align:center;padding:40px 20px;font-weight:700;">No hay productos en esta categoría todavía.</div></section>
 
 <section class="section">
   <div class="categories">
@@ -108,23 +108,23 @@ a{text-decoration:none;color:inherit} button,select{font:inherit}
   <h2 class="section-title">PRODUCTOS <span>DESTACADOS</span></h2>
   <div id="blz-filters" class="blz-filters">
   <div class="blz-filter-row">
-    <button class="blz-filter active" data-filter="all">TODOS</button>
-    <button class="blz-filter" data-filter="hombre">HOMBRE</button>
-    <button class="blz-filter" data-filter="mujer">MUJER</button>
-    <button class="blz-filter" data-filter="stock">⚡ STOCK DISPONIBLE</button>
+    <button class="filter-btn blz-filter active" data-filter="all" onclick="applyFilter('all')">TODOS</button>
+    <button class="filter-btn blz-filter" data-filter="hombre" onclick="applyFilter('hombre')">HOMBRE</button>
+    <button class="filter-btn blz-filter" data-filter="mujer" onclick="applyFilter('mujer')">MUJER</button>
+    <button class="filter-btn blz-filter" data-filter="stock" onclick="applyFilter('stock')">⚡ STOCK DISPONIBLE</button>
   </div>
   <div class="blz-filter-row blz-brands">
     <span class="blz-label">MARCAS</span>
-    <button class="blz-filter" data-filter="nike">NIKE</button>
-    <button class="blz-filter" data-filter="adidas">ADIDAS</button>
-    <button class="blz-filter" data-filter="jordan">JORDAN</button>
-    <button class="blz-filter" data-filter="newbalance">NEW BALANCE</button>
-    <button class="blz-filter" data-filter="puma">PUMA</button>
-    <button class="blz-filter" data-filter="vans">VANS</button>
-    <button class="blz-filter" data-filter="asics">ASICS</button>
-    <button class="blz-filter" data-filter="louisvuitton">LOUIS VUITTON</button>
-    <button class="blz-filter" data-filter="timberland">TIMBERLAND</button>
-    <button class="blz-filter" data-filter="salomon">SALOMON</button>
+    <button class="filter-btn blz-filter" data-filter="nike" onclick="applyFilter('nike')">NIKE</button>
+    <button class="filter-btn blz-filter" data-filter="adidas" onclick="applyFilter('adidas')">ADIDAS</button>
+    <button class="filter-btn blz-filter" data-filter="jordan" onclick="applyFilter('jordan')">JORDAN</button>
+    <button class="filter-btn blz-filter" data-filter="newbalance" onclick="applyFilter('newbalance')">NEW BALANCE</button>
+    <button class="filter-btn blz-filter" data-filter="puma" onclick="applyFilter('puma')">PUMA</button>
+    <button class="filter-btn blz-filter" data-filter="vans" onclick="applyFilter('vans')">VANS</button>
+    <button class="filter-btn blz-filter" data-filter="asics" onclick="applyFilter('asics')">ASICS</button>
+    <button class="filter-btn blz-filter" data-filter="louisvuitton" onclick="applyFilter('louisvuitton')">LOUIS VUITTON</button>
+    <button class="filter-btn blz-filter" data-filter="timberland" onclick="applyFilter('timberland')">TIMBERLAND</button>
+    <button class="filter-btn blz-filter" data-filter="salomon" onclick="applyFilter('salomon')">SALOMON</button>
   </div>
 </div>
 <div class="products" id="productGrid"></div>
@@ -163,7 +163,7 @@ let cart=[];
 function money(n){return n.toLocaleString("es-UY")}
 function render(){
  const grid=document.getElementById("productGrid");
- grid.innerHTML=products.map(p=>`<article class="product" id="${p.cat}" data-blz-product-id="${p.id}">
+ grid.innerHTML=products.map(p=>`<article class="product" id="${p.cat}" data-blz-product-id="${p.id}" data-product-id="1" data-gender="hombre mujer" data-brands="nike jordan" data-stock="false">
   <span class="tag">POR ENCARGO</span>
   <div class="gallery" id="gallery-${p.id}" data-index="0">
   <button class="carousel-arrow prev" aria-label="Foto anterior" onclick="changeImg(${p.id}, currentIndex(${p.id})-1)">‹</button>
