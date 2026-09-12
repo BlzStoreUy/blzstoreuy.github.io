@@ -51,6 +51,63 @@ a{text-decoration:none;color:inherit} button,select{font:inherit}
 .blz-label{display:flex;align-items:center;color:#999;font-size:11px;font-weight:800;padding:0 5px}
 @media(max-width:600px){.blz-filters{padding:14px 12px 6px}}
 </style>
+
+<style>
+/* BLZ — ajuste móvil */
+html, body { width:100%; max-width:100%; overflow-x:hidden; }
+img { max-width:100%; }
+
+.hero {
+  width:100%;
+  max-width:100%;
+  min-height:570px;
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
+}
+.hero-inner { width:100%; max-width:650px; padding:40px 22px; }
+
+@media (max-width: 700px) {
+  .nav { height:76px; padding:8px 16px; gap:12px; }
+  .logo { width:58px; height:58px; }
+  .navlinks { display:none; }
+  .icons { margin-left:auto; }
+
+  .hero {
+    min-height:500px;
+    background-size:cover;
+    background-position:center;
+  }
+  .hero-inner { padding:42px 24px; }
+  .eyebrow { font-size:10px; letter-spacing:4px; }
+  .hero h1 { font-size:64px; margin-top:10px; }
+  .hero p { font-size:14px; letter-spacing:2.5px; }
+  .gold-script { font-size:25px; margin:18px 0; }
+  .btn { padding:14px 18px; }
+
+  .section { width:100%; max-width:100%; padding:42px 16px; }
+  .section-title { font-size:32px; line-height:1.05; }
+  .categories { grid-template-columns:1fr; gap:14px; }
+  .cat { min-height:170px; padding:22px; }
+
+  .blz-filters { width:100%; max-width:100%; padding:12px 0 6px; }
+  .blz-filter-row { padding:0 16px 8px; }
+  .blz-filter { flex:0 0 auto; }
+
+  .products { grid-template-columns:1fr; gap:16px; }
+  .product { width:100%; min-width:0; }
+  .gallery, .gallery > img { width:100%; max-width:100%; }
+}
+
+@media (max-width: 420px) {
+  .hero { min-height:470px; }
+  .hero-inner { padding:34px 20px; }
+  .hero h1 { font-size:56px; }
+  .hero p { font-size:13px; }
+  .gold-script { font-size:23px; }
+  .section-title { font-size:29px; }
+}
+</style>
 </head>
 <body>
 
@@ -64,21 +121,6 @@ a{text-decoration:none;color:inherit} button,select{font:inherit}
   </nav>
 </header>
 
-
-  <div class="filter-group brands">
-    <span class="filter-label">MARCAS</span>
-    <button class="filter-btn filter" data-filter="nike" onclick="applyFilter('nike')">NIKE</button>
-    <button class="filter-btn filter" data-filter="adidas" onclick="applyFilter('adidas')">ADIDAS</button>
-    <button class="filter-btn filter" data-filter="jordan" onclick="applyFilter('jordan')">JORDAN</button>
-    <button class="filter-btn filter" data-filter="newbalance" onclick="applyFilter('newbalance')">NEW BALANCE</button>
-    <button class="filter-btn filter" data-filter="puma" onclick="applyFilter('puma')">PUMA</button>
-    <button class="filter-btn filter" data-filter="vans" onclick="applyFilter('vans')">VANS</button>
-    <button class="filter-btn filter" data-filter="asics" onclick="applyFilter('asics')">ASICS</button>
-    <button class="filter-btn filter" data-filter="timberland" onclick="applyFilter('timberland')">TIMBERLAND</button>
-    <button class="filter-btn filter" data-filter="salomon" onclick="applyFilter('salomon')">SALOMON</button>
-    <button class="filter-btn filter" data-filter="louisvuitton" onclick="applyFilter('louisvuitton')">LOUIS VUITTON</button>
-  </div>
-</div>
 <main id="inicio">
 <section class="hero">
   <div class="hero-inner">
