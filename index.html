@@ -233,6 +233,47 @@ function orderNow(id){
 function checkout(){if(!cart.length){alert("Tu carrito está vacío.");return}const lines=cart.map(p=>`- ${p.name} (${p.variant}) | Talle: ${p.size} | $${money(p.price)} | Seña: $${money(p.price/2)}`).join("\n");const total=cart.reduce((s,p)=>s+p.price,0);const msg=`Hola BLZ Store! Quiero realizar un pedido por encargo:\n${lines}\n\nTotal: $${money(total)}\nSeña 50%: $${money(total/2)}\nSaldo al recibir: $${money(total/2)}\nDemora aproximada: 25 días`;const phone="59895758462";window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`,"_blank")}
 render();renderCart();
 </script>
+
+<script>
+(function () {
+  window.applyFilter = function (filter) {
+    const cards = document.querySelectorAll('[data-blz-product-id], .product[data-product-id]');
+    let visible = 0;
+
+    cards.forEach(function (card) {
+      const genders = (card.getAttribute('data-gender') || '').toLowerCase().split(/\s+/);
+      const brands = (card.getAttribute('data-brands') || '').toLowerCase().split(/\s+/);
+      const stock = (card.getAttribute('data-stock') || '').toLowerCase() === 'true';
+
+      let show = true;
+      if (filter === 'stock') show = stock;
+      else if (filter === 'hombre' || filter === 'mujer') show = genders.includes(filter);
+      else if (filter !== 'all') show = brands.includes(filter);
+
+      card.style.display = show ? '' : 'none';
+      if (show) visible++;
+    });
+
+    document.querySelectorAll('.filter-btn').forEach(function (btn) {
+      btn.classList.toggle('active', btn.getAttribute('data-filter') === filter);
+    });
+
+    const empty = document.getElementById('empty-filter');
+    if (empty) empty.style.display = visible ? 'none' : 'block';
+
+    const section = document.getElementById('destacados');
+    if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
+  // Conecta también botones que no tengan onclick.
+  document.addEventListener('click', function (event) {
+    const btn = event.target.closest('.filter-btn[data-filter]');
+    if (!btn) return;
+    event.preventDefault();
+    window.applyFilter(btn.getAttribute('data-filter'));
+  });
+})();
+</script>
 </body>
 </html>
 <script>
